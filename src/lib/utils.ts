@@ -60,3 +60,7 @@ export const flyAndScale = (
 		easing: cubicOut
 	};
 };
+
+export function serializeNonPOJOs<T = any> (obj: T) {
+	return structuredClone<T>(obj);
+};

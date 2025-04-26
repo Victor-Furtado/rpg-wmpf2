@@ -3,7 +3,10 @@
 declare global {
 	namespace App {
 		// interface Error {}
-		// interface Locals {}
+		interface Locals {
+			pb: TypedPocketBase;
+			user?: AuthModel;
+		}
 		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}
