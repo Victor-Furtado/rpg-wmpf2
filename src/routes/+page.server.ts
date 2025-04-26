@@ -4,6 +4,7 @@ import { redirect } from '@sveltejs/kit';
 export const load = async ({ locals }) => {
 	locals.pb.authStore.clear();
 	locals.user = undefined;
+	
 };
 
 export const actions = {
@@ -17,12 +18,12 @@ export const actions = {
 			return { error: 'Usuário ou senha incorretos' }
 		}
 		
-		throw redirect(303, '/p/');
+		throw redirect(303, '/a/');
 	},
 	logout: async ({ locals }) => {
 		locals.pb.authStore.clear();
 		locals.user = undefined;
 
-		throw redirect(303, '/admin/');
+		throw redirect(303, '/');
 	}
 };

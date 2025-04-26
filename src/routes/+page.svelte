@@ -12,9 +12,9 @@
   import { Skeleton } from "$lib/components/ui/skeleton";
   import { loading } from "$lib/stores/ui";
 
-  let { form }: PageProps = $props();
+  const { form }: PageProps = $props();
 
-  let backgroundImage = "";
+  let backgroundImage = $state("");
 
   const formSubmit: SubmitFunction = () => {
     $loading = true;
