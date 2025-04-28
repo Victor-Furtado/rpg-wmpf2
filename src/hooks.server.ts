@@ -1,4 +1,4 @@
-import type { TypedPocketBase } from '$lib/types/pocketbase-types';
+import type { TypedPocketBase } from './lib/types/pocketbase-types';
 import { serializeNonPOJOs } from '$lib/utils';
 import PocketBase from 'pocketbase';
 

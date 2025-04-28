@@ -49,7 +49,7 @@
     class="flex items-center justify-center h-screen bg-cover bg-center transition-all duration-500"
     style="background-image: url('{backgroundImage}')"
   >
-    <Card.Root class="w-full max-w-sm mx-5">
+    <Card.Root class="w-full max-w-sm mx-5 backdrop-blur-sm bg-black/50 rounded-xl p-6">
       <Card.Header>
         <Card.Title class="text-2xl text-center">VERIFICANDO...</Card.Title>
         <!-- <Card.Description>Enter your email below to login to your account.</Card.Description> -->
@@ -77,7 +77,7 @@
     class="flex items-center justify-center h-screen bg-cover bg-center transition-all duration-500"
     style="background-image: url('{backgroundImage}')"
   >
-    <Card.Root class="w-full max-w-sm mx-5">
+    <Card.Root class="w-full max-w-sm mx-5 backdrop-blur-sm bg-black/50 rounded-xl p-6">
       <Card.Header>
         <Card.Title class="text-2xl text-center">ENTRE</Card.Title>
         <!-- <Card.Description>Enter your email below to login to your account.</Card.Description> -->

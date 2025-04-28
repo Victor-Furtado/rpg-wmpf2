@@ -109,6 +109,7 @@ export type SuperusersRecord = {
 }
 
 export type UsersRecord = {
+	active?: boolean
 	created?: IsoDateString
 	email: string
 	emailVisibility?: boolean

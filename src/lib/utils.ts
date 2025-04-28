@@ -61,6 +61,14 @@ export const flyAndScale = (
 	};
 };
 
-export function serializeNonPOJOs<T = any> (obj: T) {
+export function serializeNonPOJOs<T = any>(obj: T) {
 	return structuredClone<T>(obj);
 };
+
+export const attributeList = ["FORÇA", "DESTREZA", "CONSTITUIÇÃO", "INTELIGÊNCIA", "SABEDORIA", "CARISMA"]
+export const emptycharacter = {
+	a: "",
+	sheet: {
+		attributes: [0, 0, 0, 0, 0, 0, 0]
+	},
+}

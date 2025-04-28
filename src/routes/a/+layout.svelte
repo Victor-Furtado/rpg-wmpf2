@@ -6,12 +6,24 @@
   import Logout from "lucide-svelte/icons/door-open";
   import Feather from "lucide-svelte/icons/feather";
 
+  import * as Dialog from "$lib/components/ui/dialog";
   import * as Sheet from "$lib/components/ui/sheet";
   import { Button } from "$lib/components/ui/button";
+  import { Label } from "$lib/components/ui/label";
+  import { Input } from "$lib/components/ui/input";
+  let { children, data } = $props();
 
   const tabs: { path: string; icon: any; label: string }[] = [
     { path: "/a/p", icon: Feather, label: "PERSONAGENS" },
   ];
+
+  const getActive = (tab: { path: string; icon: any; label: string }) => {
+    if (page.url.pathname == "/a") return "text-muted-foreground";
+    if (page.url.pathname.includes(tab.path)) {
+      return "bg-muted text-foreground";
+    }
+    return "text-muted-foreground";
+  };
 </script>
 
 <div
@@ -37,9 +49,7 @@
             <a
               href={tab.path}
               class={[
-                page.url.pathname == tab.path
-                  ? "bg-muted text-primary"
-                  : "text-muted-foreground",
+                getActive(tab),
                 "hover:text-primary flex items-center gap-3 rounded-lg px-3 py-2 transition-all",
               ]}
             >
@@ -118,9 +128,7 @@
               <a
                 href={tab.path}
                 class={[
-                  page.url.pathname == tab.path
-                    ? "bg-muted text-foreground"
-                    : "text-muted-foreground",
+                  getActive(tab),
                   "hover:text-foreground mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2",
                 ]}
               >
@@ -141,7 +149,11 @@
               </Badge>
             </a> -->
           </nav>
-          <div class="mt-auto flex justify-evenly">
+          <form
+            method="POST"
+            action="/?/logout"
+            class="mt-auto flex justify-evenly"
+          >
             <!-- <DropdownMenu.Root>
               <DropdownMenu.Trigger asChild let:builder>
                 <Button builders={[builder]} size="icon" class="rounded-full">
@@ -165,14 +177,54 @@
               <Logout class="h-5 w-5" />
               <span class="sr-only">Logout</span>
             </Button>
-          </div>
+          </form>
         </Sheet.Content>
       </Sheet.Root>
       <MainIcon class="h-6 w-6" />
       <span class="">RPG de BOLSO</span>
     </header>
     <main class="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
-      <slot />
+      {@render children()}
     </main>
   </div>
 </div>
+
+<Dialog.Root
+  bind:open={data.firstLogin}
+  closeOnEscape={false}
+  closeOnOutsideClick={false}
+>
+  <Dialog.Content class="sm:max-w-[425px]">
+    <form method="POST" action="/?/firstLogin">
+      <Dialog.Header>
+        <Dialog.Title>PRIMEIRO LOGIN!</Dialog.Title>
+        <Dialog.Description>Mude sua senha e usuário.</Dialog.Description>
+      </Dialog.Header>
+      <div class="grid gap-4 py-4">
+        <div class="grid grid-cols-4 items-center gap-4">
+          <Label for="user" class="text-right">Usuário</Label>
+          <Input
+            name="user"
+            id="user"
+            type="text"
+            required
+            class="col-span-3"
+          />
+        </div>
+        <div class="grid grid-cols-4 items-center gap-4">
+          <Label for="pass" class="text-right">Senha</Label>
+          <Input
+            name="pass"
+            id="pass"
+            type="password"
+            required
+            class="col-span-3"
+          />
+        </div>
+      </div>
+      <Dialog.Footer>
+        <Button type="submit">Save changes</Button>
+      </Dialog.Footer>
+    </form>
+  </Dialog.Content>
+</Dialog.Root>
