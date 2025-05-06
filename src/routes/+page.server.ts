@@ -1,4 +1,4 @@
-import { Collections, type UsersRecord } from '../lib/types/pocketbase-types.js';
+import { Collections } from '../lib/types/pocketbase-types.js';
 import { redirect } from '@sveltejs/kit';
 
 export const load = async ({ locals }) => {

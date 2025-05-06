@@ -12,6 +12,8 @@ export enum Collections {
 	Mfas = "_mfas",
 	Otps = "_otps",
 	Superusers = "_superusers",
+	Action = "action",
+	Heritages = "heritages",
 	Users = "users",
 }
 
@@ -20,15 +22,20 @@ export type IsoDateString = string
 export type RecordIdString = string
 export type HTMLString = string
 
+type ExpandType<T> = unknown extends T
+	? T extends unknown
+		? { expand?: unknown }
+		: { expand: T }
+	: { expand: T }
+
 // System fields
-export type BaseSystemFields<T = never> = {
+export type BaseSystemFields<T = unknown> = {
 	id: RecordIdString
 	collectionId: string
 	collectionName: Collections
-	expand?: T
-}
+} & ExpandType<T>
 
-export type AuthSystemFields<T = never> = {
+export type AuthSystemFields<T = unknown> = {
 	email: string
 	emailVisibility: boolean
 	username: string
@@ -108,6 +115,33 @@ export type SuperusersRecord = {
 	verified?: boolean
 }
 
+export enum ActionTypeOptions {
+	"E0" = "0",
+	"E1" = "1",
+	"E2" = "2",
+	"E3" = "3",
+	"R" = "R",
+	"O" = "O",
+}
+export type ActionRecord = {
+	created?: IsoDateString
+	description?: HTMLString
+	id: string
+	name?: string
+	type?: ActionTypeOptions
+	updated?: IsoDateString
+}
+
+export type HeritagesRecord = {
+	a?: RecordIdString
+	actions?: RecordIdString[]
+	created?: IsoDateString
+	description: string
+	id: string
+	name: string
+	updated?: IsoDateString
+}
+
 export type UsersRecord = {
 	active?: boolean
 	created?: IsoDateString
@@ -127,6 +161,8 @@ export type ExternalauthsResponse<Texpand = unknown> = Required<ExternalauthsRec
 export type MfasResponse<Texpand = unknown> = Required<MfasRecord> & BaseSystemFields<Texpand>
 export type OtpsResponse<Texpand = unknown> = Required<OtpsRecord> & BaseSystemFields<Texpand>
 export type SuperusersResponse<Texpand = unknown> = Required<SuperusersRecord> & AuthSystemFields<Texpand>
+export type ActionResponse<Texpand = unknown> = Required<ActionRecord> & BaseSystemFields<Texpand>
+export type HeritagesResponse<Texpand = unknown> = Required<HeritagesRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
 
 // Types containing all Records and Responses, useful for creating typing helper functions
@@ -138,6 +174,8 @@ export type CollectionRecords = {
 	_mfas: MfasRecord
 	_otps: OtpsRecord
 	_superusers: SuperusersRecord
+	action: ActionRecord
+	heritages: HeritagesRecord
 	users: UsersRecord
 }
 
@@ -148,6 +186,8 @@ export type CollectionResponses = {
 	_mfas: MfasResponse
 	_otps: OtpsResponse
 	_superusers: SuperusersResponse
+	action: ActionResponse
+	heritages: HeritagesResponse
 	users: UsersResponse
 }
 
@@ -161,5 +201,7 @@ export type TypedPocketBase = PocketBase & {
 	collection(idOrName: '_mfas'): RecordService<MfasResponse>
 	collection(idOrName: '_otps'): RecordService<OtpsResponse>
 	collection(idOrName: '_superusers'): RecordService<SuperusersResponse>
+	collection(idOrName: 'action'): RecordService<ActionResponse>
+	collection(idOrName: 'heritages'): RecordService<HeritagesResponse>
 	collection(idOrName: 'users'): RecordService<UsersResponse>
 }

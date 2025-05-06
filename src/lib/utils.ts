@@ -65,10 +65,53 @@ export function serializeNonPOJOs<T = any>(obj: T) {
 	return structuredClone<T>(obj);
 };
 
-export const attributeList = ["FORÇA", "DESTREZA", "CONSTITUIÇÃO", "INTELIGÊNCIA", "SABEDORIA", "CARISMA"]
-export const emptycharacter = {
-	a: "",
-	sheet: {
-		attributes: [0, 0, 0, 0, 0, 0, 0]
-	},
+export function getAttrbuteFullName(attribute: string) {
+	switch (attribute) {
+		case "str":
+			return "FORÇA";
+		case "dex":
+			return "DESTREZA";
+		case "con":
+			return "CONSTITUIÇÃO";
+		case "int":
+			return "INTELIGÊNCIA";
+		case "wis":
+			return "SABEDORIA";
+		case "cha":
+			return "CARISMA";
+		default:
+			return "ERRO";
+	}
+}
+
+export function getSizeFullName(size: string) {
+	switch (size) {
+		case "tiny":
+			return "MIÚDO";
+		case "sm":
+			return "PEQUENO";
+		case "med":
+			return "MÉDIO";
+		case "lg":
+			return "GRANDE";
+		case "huge":
+			return "ENORME";
+		case "gargantuan":
+			return "IMENSO";
+		default:
+			return "ERRO";
+	}
+}
+
+export function getVisionName(vision: string) {
+	switch (vision) {
+		case "normal":
+			return "Visão Normal";
+		case "low-light-vision":
+			return "Visão na Meia-Luz";
+		case "darkvision":
+			return "Visão no Escuro";
+		default:
+			return "???";
+	}
 }
